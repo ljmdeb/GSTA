@@ -1,8 +1,15 @@
 # GSTA
 Replacing a Black-box model by a Global Single Tree Approximation
+
 Laurent Deborde
 2019 March the 23th and 24th
 
+Content : 
+* discussion of the subject (here and in the .doc and .odt documents). 
+* 3 Jupyter notebooks were the approach is applied on public toy datasets : 1 classification (Breast Cancer), 2 regression (Wine and Crime datasets). On all datasets the "black box models" are Random Forest and Gradient Boosting. In the first 2 cases both gaussian and determinist (Munge-like) supplemental data creation is exemplified. In the third case PCA is exemplified. 
+All is usable under Creative Commons License (in the unlikely event one would like to use it). 
+
+Discussion : 
 In supervised learning applications, explainability is frequently considered important by end users. They often are willing to trade efficiency for it. 
 There even are cases when, for regulatory, practical or commercial reasons, the use of the best machine learning models, if they be black boxes, is forbidden. Only single trees or similar simple models are deemed acceptable then. 
 Do we have in those cases to revert to ordinary trees, cart-built on the initial training set? 
