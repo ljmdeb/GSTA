@@ -54,5 +54,5 @@ The approximation techniques I refer to may be called after [1] « global rever
 
 [6] C. Bucilua, R. Caruana, and A. Niculescu-Mizil, “Model compression,” in Proceedings of the 12th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, ser. KDD ’06, 2006, pp. 535–541.
 
-
+https://zenodo.org/badge/177329765.svg
 
