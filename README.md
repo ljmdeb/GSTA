@@ -41,7 +41,7 @@ Finally, rather than drawing points at random, deterministic approach can be use
 
 My intuition is that this simple way of generating global single tree approximations are appropriate when the underlying problem is not too complex (more specifically, we are able this way to do much better than a initial tree of low depth (for instance the classification case here, Breast Cancer). Then a reasonable number of artificial points let us build a more complex, and more efficient, tree. If the underlying problem is too complex (e.g.we would need a very deep tree to reach acceptable levels of accuracy), the needed number of artificial points gets high and the computing time increases unacceptably. Obviously quality of tree fit to generated additionnal data predict quality of prediction. Additionaly, in the 3 exemples here I observe that single tree approximation fit more closely random forest predicted label than they fit gradient boosting predicted label. Have you experienced the same ? What of other complex models (NN, SVM) ?
 
-##### Thanks in advance for your feedback. 
+#### Thanks in advance for your feedback. 
 
 
 ### Some references: 
@@ -61,6 +61,7 @@ The approximation techniques I refer to may be called after [1] « global rever
 
 [6] C. Bucilua, R. Caruana, and A. Niculescu-Mizil, “Model compression,” in Proceedings of the 12th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, ser. KDD ’06, 2006, pp. 535–541.
 
-![https://zenodo.org/badge/177329765.svg]
+
+![alt text](https://zenodo.org/badge/177329765.svg)
 
 
