@@ -5,15 +5,16 @@ Laurent Deborde
 2019 March the 24th
 
 ### Content : 
-* discussion of the subject (here and in the .doc and .odt documents). 
-* 3 Jupyter notebooks were the approach is applied on public toy datasets : 1 classification (Breast Cancer), 2 regression (Wine and Crime datasets). On all datasets the "black box models" are Random Forest and Gradient Boosting. In the first 2 cases both gaussian and determinist (Munge-like) supplemental data creation is exemplified. In the third case PCA is exemplified. 
+* discussion of the subject (here) 
+* 3 Jupyter notebooks were the approach is applied to public toy datasets : 1 classification (Breast Cancer), 2 regression (Wine and Crime datasets). On all datasets the "black box models" are Random Forest and Gradient Boosting. In the first 2 cases both gaussian and determinist (Munge-like) supplemental data creation are exemplified. In the third case use of PCA before data creation is exemplified. 
 All is usable under Creative Commons License (in the unlikely event one would like to use it). 
 
 ### Discussion : 
-In supervised learning applications, explainability is frequently considered important by end users. They often are willing to trade efficiency for it. 
-There even are cases when, for regulatory, practical or commercial reasons, the use of the best machine learning models, if they be black boxes, is forbidden. Only single trees or similar simple models are deemed acceptable then. 
+In supervised learning applications, explainability is frequently considered important by end users. New methods, have been developped recently to explain - mostly locally- the more complex models (the most up-to-date probably being "SHAP", as described by Lundberg and Lee [7]). Those explanations improve the acceptability of black box models for users. 
+
+But there are cases when, for regulatory, practical or commercial reasons, the use of the best machine learning models, if they be black boxes, is forbidden. Only single trees or similar simple models are deemed acceptable then. 
 Do we have in those cases to revert to ordinary trees, cart-built on the initial training set? 
-Not necessarily so. Methods have been developed to explain complex models. Some of them consist of approximating globally the black box with a single tree. 
+Not necessarily so. Among the methods developed to explain complex models, some (contrarily to local explanations such as SHAP) consist of approximating globally the black box with a single tree. 
 Why not use that proxy tree as a replacement model when black boxes are forbidden, then?
 
 If I'm not mistaken, those ideas can be applied quite simply, with the usual tools of machine learning (e.g. Python and Scikit-learn). I tried them on a couple of well-known datasets and found the results to be quite better than the usual Cart Trees (see code). Those tries haven't been extensive though, and I hadn't the opportunity to discuss that with other users. So I still wonder if such model replacements are frequently practiced, on what kind of problems it can be applied succesfully, or even whether the satisfying performances obtained here are just the result of chance/mistake. I would appreciate your feedback. 
@@ -39,7 +40,9 @@ In professional context, I've used a PCA to reduce dimensionality and randomly d
 Finally, rather than drawing points at random, deterministic approach can be used : for instance the combination of average +/- standard deviation described above (only after ACP, because it doesn't take into account covariances) ; or (inspired by [6]) by taking the exact average of each pair of « real » point in the training set (which produce a total of n^2 points if n is the number of points in the original training set). Variants with more data by pair of real points could produce more points.
 
 
-My intuition is that this simple way of generating global single tree approximations are appropriate when the underlying problem is not too complex (more specifically, we are able this way to do much better than a initial tree of low depth (for instance the classification case here, Breast Cancer). Then a reasonable number of artificial points let us build a more complex, and more efficient, tree. If the underlying problem is too complex (e.g.we would need a very deep tree to reach acceptable levels of accuracy), the needed number of artificial points gets high and the computing time increases unacceptably. Obviously quality of tree fit to generated additionnal data predict quality of prediction. Additionaly, in the 3 exemples here I observe that single tree approximation fit more closely random forest predicted label than they fit gradient boosting predicted label. Have you experienced the same ? What of other complex models (NN, SVM) ?
+My intuition is that this simple way of generating global single tree approximations is appropriate when the underlying problem is not too complex. Then a reasonable number of artificial points let us closely 'map' the black box model, and build an efficient tree. If the underlying problem is too complex, the methods illustrated here should fail : the needed number of artificial points and computing time will both increase unacceptably. And any simple tree able to approximate the black box model on those complex problems would itself be very complex (i.e. deep), so much that it's no longer a transparent model. Do you agree ? 
+
+Besides, in the 3 exemples here I observe that single tree approximation fit more closely random forest predicted label than they fit gradient boosting predicted label. Have you experienced the same ? What of other complex models (NN, SVM) ?
 
 #### Thanks in advance for your feedback. 
 
@@ -61,7 +64,9 @@ The approximation techniques I refer to may be called after [1] « global rever
 
 [6] C. Bucilua, R. Caruana, and A. Niculescu-Mizil, “Model compression,” in Proceedings of the 12th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, ser. KDD ’06, 2006, pp. 535–541.
 
+[7] Scott M. Lundberg, Su-In Lee, "a unified approach to interpretating model predictions" Conference NIPS 2017. (the authors provide useful and beautiful notebooks here : https://github.com/slundberg/shap )
 
-![alt text](https://zenodo.org/badge/177329765.svg)
+
+
 
 
