@@ -10,11 +10,11 @@ Laurent Deborde
 All is usable under Creative Commons License (in the unlikely event one would like to use it). 
 
 ### Discussion : 
-In supervised learning applications, explainability is frequently considered important by end users. New methods, have been developped recently to explain - mostly locally- the more complex models (the most up-to-date probably being "SHAP", as described by Lundberg and Lee [7]). Those explanations improve the acceptability of black box models for users. 
+In supervised learning applications, explainability is frequently considered important by end users. New methods have been developped recently to explain the more complex models (the most up-to-date probably being "SHAP", as described by Lundberg and Lee [7]). Those explanations improve the acceptability of black box models for users. 
 
 But there are cases when, for regulatory, practical or commercial reasons, the use of the best machine learning models, if they be black boxes, is forbidden. Only single trees or similar simple models are deemed acceptable then. 
-Do we have in those cases to revert to ordinary trees, cart-built on the initial training set? 
-Not necessarily so. Among the methods developed to explain complex models, some (contrarily to local explanations such as SHAP) consist of approximating globally the black box with a single tree. 
+Do we have in those cases to revert to ordinary trees, built with the cart algorithm on the initial training set? 
+Not necessarily so. Among the methods developed to explain complex models, some consist of approximating globally the black box with a single tree. 
 Why not use that proxy tree as a replacement model when black boxes are forbidden, then?
 
 If I'm not mistaken, those ideas can be applied quite simply, with the usual tools of machine learning (e.g. Python and Scikit-learn). I tried them on a couple of well-known datasets and found the results to be quite better than the usual Cart Trees (see code). Those tries haven't been extensive though, and I hadn't the opportunity to discuss that with other users. So I still wonder if such model replacements are frequently practiced, on what kind of problems it can be applied succesfully, or even whether the satisfying performances obtained here are just the result of chance/mistake. I would appreciate your feedback. 
