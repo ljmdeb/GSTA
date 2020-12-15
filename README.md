@@ -13,23 +13,22 @@ All is usable under Creative Commons License (in the unlikely event one would li
 In supervised learning applications, explainability is frequently considered important by end users. New methods have been developped recently to explain the more complex models (the most up-to-date probably being "SHAP", as described by Lundberg and Lee [7]). Those explanations improve the acceptability of black box models for users. 
 
 But there are cases when, for regulatory, practical or commercial reasons, the use of the best machine learning models, if they be black boxes, is forbidden. Only single trees or similar simple models are deemed acceptable then. 
-Do we have in those cases to revert to ordinary trees, built with the cart algorithm on the initial training set? 
+Do we have in those cases to revert to ordinary trees, built with the CART algorithm on the initial training set? 
 Not necessarily so. Among the methods developed to explain complex models, some consist of approximating globally the black box with a single tree. 
 Why not use that proxy tree as a replacement model when black boxes are forbidden, then?
 
-If I'm not mistaken, those ideas can be applied quite simply, with the usual tools of machine learning (e.g. Python and Scikit-learn). I tried them on a couple of well-known datasets and found the results to be quite better than the usual Cart-built trees (see code). Those tries haven't been extensive though, and I hadn't the opportunity to discuss that with other users. So I still wonder if such model replacements are frequently practiced, on what kind of problems it can be applied succesfully, or even whether the satisfying performances obtained here are just the result of chance/mistake. I would appreciate your feedback. 
+If I'm not mistaken, those ideas can be applied quite simply, with the usual tools of machine learning (e.g. Python and Scikit-learn). I tried them on a couple of well-known datasets and found the results to be quite better than the usual CART-built trees (see code). Those tries haven't been extensive though, and I hadn't the opportunity to discuss that with other users. So I still wonder if such model replacements are frequently practiced, on what kind of problems it can be applied succesfully, or even whether the satisfying performances obtained here are just the result of chance/mistake. I would appreciate your feedback. 
 
-The general idea is the following : the performance of a tree built by the Cart algorithm generally increase with the number of data on which it is trained. More training data would let us build a better tree. We'll use the black box model to do just that : generate new labeled data. More precisely, let's take some unlabelled supplemental data (either from your real-life problem or generated  by some procedure based on the existing training set), and use the black box model as an oracle to predict the label of those supplemental data. Then we will train a single tree on the resulting labelled data. Please note that there is no leakage from the test set since is not used in the process. 
+The general idea is the following : the performance of a tree built by the CART algorithm generally increases with the number of data on which it is trained. More training data would let us build a better tree. We'll use the black box model to do just that : generate new labeled data. More precisely, let's take some unlabelled supplemental data (either from your real-life problem or generated  by some procedure based on the existing training set), and use the black box model as an oracle to predict the label of those supplemental data. Then we will train a single tree on the resulting labelled data. Please note that there is no leakage from the test set since is not used in the process. 
 
 
-The procedure used here has been quite simple: 
-fit a Tree with Cart on the training set (choosing parameters with cross-validation), then test : observe mediocre results
-fit a more complex model (typically Gradient Boosting and/or Random Forest, with default parameters or cross-validation), then test: observe better result.
+The procedure is quite simple: 
+Fit a Tree with CART on the training set (choosing parameters with cross-validation), then test : observe mediocre results.
+Fit a more complex model (typically Gradient Boosting and/or Random Forest, with default parameters or cross-validation), then test: observe better result.
 Generate many new unlabeled data (drawing the new data at random in a multivariate gaussian process, with mean and variance/covariance estimated on the training set) [alternatively, generate the data by deterministic procedure; and in the case of many dimensions, use ACP before generating new data] 
 Compute label predicted by the complex model on the newly generated data.
-Fit a tree (with Cart) on those new data (choosing depth with cross-validation; or limiting ex ante the tree depth to 7 or 8 to insure ease of interpretation by end user)
-Compute prediction of this new « enhanced » tree on the (original) test set: observe quite good results, typically somewhere in between the original single tree and the complex model
-(in real world application:) keep that « enhanced » tree as model
+Fit a tree (with CART) on those new data (choosing depth with cross-validation; or limiting ex ante the tree depth to 7 or 8 to insure ease of interpretation by end user)
+Compute prediction of this new « enhanced » tree on the (original) test set: observe quite good results, typically somewhere in between the original single tree and the complex model. Keep that « enhanced » tree as model.
 
 Articles mentioned as references use smart strategies to avoid creating too many points: they typically draw points as needed, as they build the tree step by step (albeit frequently the covariance of variables is ignored). On the opposite, here, for the sake of simplicity, I mainly use a (simplistic!) « brute force » strategy where all new points are drawn first and then the entire tree is built (although using the covariance structure of the training set).
 
